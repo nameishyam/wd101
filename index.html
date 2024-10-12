@@ -3,34 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login Page</title>
 </head>
-<body>
-    <h2>Login Page</h2>
-    <form method="post">
-        <div>
-            <label for="name">Name: </label>
-            <input type="text" id="name" name="name" required>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
+    <form method="post" style="background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); width: 300px;">
+        <h2 style="text-align: center; color: #333;">Login Page</h2>
+        <div style="margin-bottom: 15px;">
+            <label for="name" style="display: block; margin-bottom: 5px; color: #555;">Name:</label>
+            <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc; outline: none;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="email" style="display: block; margin-bottom: 5px; color: #555;">Email:</label>
+            <input type="text" id="email" name="email" required style="width: 100%; padding: 8px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc; outline: none;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="password" style="display: block; margin-bottom: 5px; color: #555;">Password:</label>
+            <input type="password" id="password" name="password" required style="width: 100%; padding: 8px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc; outline: none;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="dob" style="display: block; margin-bottom: 5px; color: #555;">Date Of Birth:</label>
+            <input type="dob" id="dob" name="dob" required style="width: 100%; padding: 8px; box-sizing: border-box; border-radius: 4px; border: 1px solid #ccc; outline: none;">
+        </div>
+        <div style="margin-bottom: 15px; display: flex; align-items: center;">
+            <input type="checkbox" id="term" name="term" required style="margin-right: 5px;">
+            <label for="term" style="color: #555;">Accept Terms and Conditions</label>
         </div>
         <div>
-            <label for="email">Email: </label>
-            <input type="text" id="email" name="email" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <label for="dob">Date Of Birth:</label>
-            <input type="dob" id="dob" name="dob" required>
-        </div>
-        <div>
-            <label for="term">Accept Terms and Conditions</label>
-            <input type="checkbox" id="term" name="term" required>
-        </div>
-        <div>
-            <button type="submit">Submit</button>
+            <button type="submit" style="width: 100%; background-color: #007BFF; color: #fff; padding: 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">Submit</button>
         </div>
     </form>
+    <script src="script.js"></script>
 </body>
 </html>
