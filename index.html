@@ -94,6 +94,37 @@
             </button>
           </div>
         </form>
+
+        <!-- Table to display user entries -->
+        <div class="mt-8">
+          <h3 class="text-xl font-semibold text-gray-800 mb-4">User Entries</h3>
+          <div class="overflow-x-auto">
+            <table
+              id="entries-table"
+              class="min-w-full border-collapse border border-gray-300"
+            >
+              <thead>
+                <tr class="bg-gray-200">
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Name
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Email
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Date of Birth
+                  </th>
+                  <th class="border border-gray-300 px-4 py-2 text-left">
+                    Accepted Terms
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="entries-body">
+                <!-- User entries will be displayed here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
     <script src="./script.js"></script>
