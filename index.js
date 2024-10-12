@@ -1,69 +1,63 @@
-let userEntries = JSON.parse(localStorage.getItem("user-entries")) || [];
-
-// Function to validate age
-const isAgeValid = (dob) => {
-  const birthDate = new Date(dob);
-  const today = new Date();
-  
-  // Calculate age
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const monthDifference = today.getMonth() - birthDate.getMonth();
-
-  // Adjust age if the birthday hasn't occurred yet this year
-  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
+let userForm = document.getElementById("user-form");
+const retrieveEntries = () => {
+  let entries = localStorage.getItem("user-entries");
+  if (entries) {
+    entries = JSON.parse(entries);
+  } else {
+    entries = [];
   }
-  
-  return age >= 18 && age <= 50; // Check if age is between 18 and 50
+  return entries;
 };
-
-// Function to save user form entries
+const displayEntries = () => {
+  const entries = retrieveEntries();
+  const tableEntries = entries
+    .map((entry) => {
+      const nameCell = `<td class='border px-4 py-2'>${entry.name}</td>`;
+      const emailCell = `<td class='border px-4 py-2'>${entry.email}</td>`;
+      const passwordCell = `<td class='border px-4 py-2'>${entry.password}</td>`;
+      const dobCell = `<td class='border px-4 py-2'>${entry.dob}</td>`;
+      const acceptTermsCell = `<td class='border px-4 py-2'>${entry.acceptedTermsAndconditions}</td>`;
+      const row = `<tr>${nameCell}${emailCell}${passwordCell}${dobCell}${acceptTermsCell}</tr>`;
+      return row;
+    })
+    .join("\n");
+  const table = `<table class="table-auto w-full">
+        <tr>
+            <th class="px-4 py-2">Name</th> 
+            <th class="px-4 py-2">Email</th>
+            <th class="px-4 py-2">Password</th>
+            <th class="px-4 py-2">Dob</th>
+            <th class="px-4 py-2">Accepted terms?</th>
+        </tr>
+        ${tableEntries}
+    </table>`;
+  document.getElementById("entries-table").innerHTML = table;
+};
 const saveUserForm = (event) => {
   event.preventDefault();
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   const dob = document.getElementById("dob").value;
-
-  const acceptedTermsAndConditions = document.getElementById("terms").checked;
-
-  // Validate the date of birth
-  if (!isAgeValid(dob)) {
-    alert("You must be between 18 and 50 years old.");
-    return; // Exit the function if age is invalid
+  const acceptedTermsAndconditions = document.getElementById("terms").checked;
+  const currentDate = new Date();
+  const userDob = new Date(dob);
+  const age = currentDate.getFullYear() - userDob.getFullYear();
+  if (age < 18 || age > 55) {
+    alert("Please enter a valid date of birth between 18 and 55 years");
+    return;
   }
-
   const entry = {
     name,
     email,
     password,
     dob,
-    acceptedTermsAndConditions,
+    acceptedTermsAndconditions,
   };
-
-  userEntries.push(entry);
-  localStorage.setItem("user-entries", JSON.stringify(userEntries));
-  displayEntries(); // Call the function to display entries in the table
+  const entries = retrieveEntries();
+  entries.push(entry);
+  localStorage.setItem("user-entries", JSON.stringify(entries));
+  displayEntries();
 };
-
-// Function to display user entries in the table
-const displayEntries = () => {
-  const entriesBody = document.getElementById("entries-body");
-  entriesBody.innerHTML = ""; // Clear existing entries
-  userEntries.forEach((entry) => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td class="border border-gray-300 px-4 py-2">${entry.name}</td>
-      <td class="border border-gray-300 px-4 py-2">${entry.email}</td>
-      <td class="border border-gray-300 px-4 py-2">${entry.password}</td>
-      <td class="border border-gray-300 px-4 py-2">${entry.dob}</td>
-      <td class="border border-gray-300 px-4 py-2">${entry.acceptedTermsAndConditions ? "Yes" : "No"}</td>
-    `;
-    entriesBody.appendChild(row);
-  });
-};
-
-// Display entries on page load
+userForm.addEventListener("submit", saveUserForm);
 displayEntries();
-
-document.getElementById("user-form").addEventListener("submit", saveUserForm);
